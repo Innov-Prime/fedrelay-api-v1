@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,9 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'https://api.fedrelay.com']
 
 
 # Application definition
@@ -176,3 +180,6 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 
 # MAIL_FROM_ADDRESS="contact@connect.bj"
 # MAIL_FROM_NAME="${APP_NAME}"
+
+# Make sure that BASE_DIR is defined somewhere at the top
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
