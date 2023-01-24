@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
-from decouple import config
+# from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-12guxy3p^9by6zg=5mg+14s%-j50vqi+xo_ba(6v9k)2-!m7%2'
 
-# SECRET_KEY = "django-insecure-12guxy3p^9by6zg=5mg+14s%-j50vqi+xo_ba(6v9k)2-!m7%2"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -33,18 +33,23 @@ SECRET_KEY = config('SECRET_KEY')
 # ALLOWED_HOSTS = []
 
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'https://api.fedrelay.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # WHITENOISE ADDED
+    "whitenoise.runserver_nostatic",
+    
+    "django.contrib.staticfiles",
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # 'django.contrib.staticfiles',
 
     'livraison',
     'signup',
@@ -71,8 +76,13 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WHITENOISE ADDED
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -113,11 +123,14 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fedrelay_db',##anaz7484_fedrelay-api
-        'USER': 'root',##anaz7484_fedrelay
-        # 'PASSWORD': 'fedrelay123', ##DnBfG%hLwQHi
+        'NAME': 'anaz7484_fedrelay-api',
+        'USER': 'anaz7484_fedrelay',
+        'PASSWORD': 'DnBfG%hLwQHi',
         'HOST': 'localhost',
-        # 'PORT': '5432',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'STRICT_ALL_TABLES',
+        },
     }
 
 }
@@ -167,11 +180,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL CONFIGURATION
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST=config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_PORT=config('EMAIL_PORT') 
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+# EMAIL_HOST=config('EMAIL_HOST')
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_PORT=config('EMAIL_PORT') 
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 
 # MAIL_MAILER=smtp
 # MAIL_HOST=send.smtp.mailtrap.io
@@ -183,5 +196,7 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 # MAIL_FROM_ADDRESS="contact@connect.bj"
 # MAIL_FROM_NAME="${APP_NAME}"
 
+
 # Make sure that BASE_DIR is defined somewhere at the top
-# STATIC_ROOT = os.path.join('static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / "staticfiles"
