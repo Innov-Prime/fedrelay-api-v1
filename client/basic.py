@@ -2,31 +2,31 @@ import requests
 
 # ======= USING MIXINGS ===== #
 
-# http://127.0.0.1:8000/delivery/create/ ## ENREGISTREMENT D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/delivery/pk/ ## RECUPERATION DES DONNEES D'UNE LIVRAISON
-# http://127.0.0.1:8000/delivery/deliverys/<user_id>/ ## RECUPERATION TOUTES LES LIVRAISON
-# http://127.0.0.1:8000/delivery/followUp/ ## SUIVI D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/delivery/create/ ## ENREGISTREMENT D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/delivery/pk/ ## RECUPERATION DES DONNEES D'UNE LIVRAISON
+# http://api.fedrelay.com/delivery/deliverys/<user_id>/ ## RECUPERATION TOUTES LES LIVRAISON
+# http://api.fedrelay.com/delivery/followUp/ ## SUIVI D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
 
-# http://127.0.0.1:8000/user/create/ ## CREATION DE COMPTE D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/user/login/ ## CONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/user/logout/ ## DECONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN TOKEN DANS LE HEADERS
-# http://127.0.0.1:8000/user/password_reset/ ## REINITIALISATION DE MOT DE PASSE ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/user/password_reset/confirm/ ## CONFIRMATION DE LA REINITIALISATION DU MOT DE PASSE ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/user/create/ ## CREATION DE COMPTE D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/user/login/ ## CONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/user/logout/ ## DECONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN TOKEN DANS LE HEADERS
+# http://api.fedrelay.com/user/password_reset/ ## REINITIALISATION DE MOT DE PASSE ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/user/password_reset/confirm/ ## CONFIRMATION DE LA REINITIALISATION DU MOT DE PASSE ## ON DOIT LUI ENVOYER UN JSON DATA
 
-# http://127.0.0.1:8000/dashbord/profil/ ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/dashbord/profil/ ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
 
-# http://127.0.0.1:8000/chat/client/ ## POST D'UN MESSAGE PAR UN CLIENT
-
-
-# http://127.0.0.1:8000/dashbord/avatar/<user_id>/ ## MODIFICATION D'AVATAR POUR UN USER
+# http://api.fedrelay.com/chat/client/ ## POST D'UN MESSAGE PAR UN CLIENT
 
 
+# http://api.fedrelay.com/dashbord/avatar/<user_id>/ ## MODIFICATION D'AVATAR POUR UN USER
 
 
-# http://127.0.0.1:8000/newsletter/ ## CREATION D'UN NEWSLETTER ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/simulator/ ## SIMULATION DU PRIX DE LA LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/partenariat/ ##ENREGISTREMENT D'UN PARTENARIAT## PARTENARIAT ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://127.0.0.1:8000/contact/ ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
+
+
+# http://api.fedrelay.com/newsletter/ ## CREATION D'UN NEWSLETTER ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/simulator/ ## SIMULATION DU PRIX DE LA LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/partenariat/ ##ENREGISTREMENT D'UN PARTENARIAT## PARTENARIAT ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/contact/ ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
 
 
 ## FORMA DU DATA à ENVOYER AU COURS DE L'ENREGISTREMENT D'UNE LIVRAISON ##
@@ -67,7 +67,7 @@ newsletter = {
 user = {
     "username": "florent@gmail.com", ## ICI LE USER NE RENSEIGNE PAS SON USERNAME DANS LE FORMULAIRE. C'EST NOUS QUI LUI EN CREONS UN SOIT AVEC SON MAIL OU SON PHONE=====##
     "email": "florent@gmail.com",
-    "phone":"",
+    "phone":"45868655",
     "password": "florent@123"
 }
 
@@ -146,14 +146,14 @@ contact = {
 
 # follow_code = '2'
 
-url = "http://127.0.0.1:8000/delivery/"
+url = "http://127.0.0.1:8000/dashbord/avatar/1/"
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS POST
-# response = requests.post(url,json=delivery) 
+response = requests.patch(url,json=avatar) 
 
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS GET
-response = requests.get(url) 
+# response = requests.get(url) 
 
 ## AFFICHAGE DES RESULTATS DES REQUETES
 print(response.json())

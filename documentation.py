@@ -3,7 +3,7 @@ import requests
 '''
 ##============ ENREGISTREMENT D'UNE LIVRAISON==========##
 
-    url = http://127.0.0.1:8000/delivery/create/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/delivery/create/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -31,28 +31,28 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/delivery/create/,json=delivery)
+    requests.post(http://api.fedrelay.com/delivery/create/,json=delivery)
 
 '''
 
 '''
 ##============ RECUPERATION DE TOUTE LES LIVRAISONS D'UN USER==========##
 
-    url = http://127.0.0.1:8000/delivery/deliverys/<user_id>/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/delivery/deliverys/<user_id>/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
 
     EXEMPLE DE REQUEST:
 
-    requests.GET(http://127.0.0.1:8000/delivery/deliverys/<user_id>/)
+    requests.GET(http://api.fedrelay.com/delivery/deliverys/<user_id>/)
 '''
 
 '''
 ##============ RECUPERATION DES DONNEES D'UNE LIVRAISON ==========##
 
-    url =  http://127.0.0.1:8000/delivery/<pk>/ ## ON DOIT LUI ENVOYER L'ID DE LA LIVRAISON à RECUPERER 
+    url =  http://api.fedrelay.com/delivery/<pk>/ ## ON DOIT LUI ENVOYER L'ID DE LA LIVRAISON à RECUPERER 
 
     EXEMPLE DE REQUEST:
 
-    requests.get(http://127.0.0.1:8000/delivery/<pk>/)
+    requests.get(http://api.fedrelay.com/delivery/<pk>/)
 
 '''
 
@@ -60,7 +60,7 @@ import requests
 '''
 ##============ SUIVI D'UNE LIVRAISON ==========##
 
-    url = http://127.0.0.1:8000/delivery/followUp/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/delivery/followUp/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -70,7 +70,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/delivery/followUp/,json=follow_code)
+    requests.post(http://api.fedrelay.com/delivery/followUp/,json=follow_code)
 
     RETURN:
 
@@ -91,7 +91,7 @@ import requests
 '''
 ##============ CREATION DE COMPTE D'UN USER ==========##
 
-    url = http://127.0.0.1:8000/user/create/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/user/create/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -104,14 +104,14 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/user/create/,json=user)
+    requests.post(http://api.fedrelay.com/user/create/,json=user)
 
 '''
 
 '''
 ##============ CONNEXION D'UN USER à UN COMPTE ==========##
 
-    url = http://127.0.0.1:8000/user/login/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/user/login/ ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -122,26 +122,26 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/user/login/,json=user_login)
+    requests.post(http://api.fedrelay.com/user/login/,json=user_login)
 
 '''
 
 '''
 ##============ DECONNEXION D'UN USER à UN COMPTE ==========##
 
-    url = http://127.0.0.1:8000/user/logout/ ## ON DOIT LUI ENVOYER UN TOKEN DANS LE HEADERS ## ça marche sur postman
+    url = http://api.fedrelay.com/user/logout/ ## ON DOIT LUI ENVOYER UN TOKEN DANS LE HEADERS ## ça marche sur postman
 
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/user/logout/)
+    requests.post(http://api.fedrelay.com/user/logout/)
 
 '''
 
 '''
 ##============ REINITIALISATION DE MOT DE PASSE ==========##
 
-    url = http://127.0.0.1:8000/user/password_reset/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/user/password_reset/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -151,7 +151,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/user/password_reset/,json=reset_password)
+    requests.post(http://api.fedrelay.com/user/password_reset/,json=reset_password)
 
 
     RETURN: 
@@ -166,7 +166,7 @@ import requests
 '''
 ##============ CONFIRMATION DE LA REINITIALISATION DU MOT DE PASSE ==========##
 
-    url = http://127.0.0.1:8000/user/password_reset/confirm/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/user/password_reset/confirm/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -177,14 +177,14 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/user/password_reset/confirm/,json=confirm_reset_password)
+    requests.post(http://api.fedrelay.com/user/password_reset/confirm/,json=confirm_reset_password)
 
 '''
 
 '''
 ##============ ENVOIE DE MESSAGE DANS LE CHAT PAR UN CLIENT ==========##
 
-    url = http://127.0.0.1:8000/chat/client/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/chat/client/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -194,7 +194,7 @@ import requests
     }
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/chat/client/,json=chat_client)
+    requests.post(http://api.fedrelay.com/chat/client/,json=chat_client)
 
 '''
 
@@ -202,7 +202,7 @@ import requests
 '''
 ##============ MODIFICATION D'UN AVATAR POUR UN USER ==========##
 
-    url = http://127.0.0.1:8000/dashbord/avatar/<user_id>/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/dashbord/avatar/<user_id>/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -211,14 +211,14 @@ import requests
     }
     EXEMPLE DE REQUEST:
 
-    requests.patch(http://127.0.0.1:8000/dashbord/avatar/1/)
+    requests.patch(http://api.fedrelay.com/dashbord/avatar/1/)
 
 '''
 
 '''
 ##============ CREATION D'UN NEWSLETTER ==========##
 
-    url = http://127.0.0.1:8000/newsletter/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/newsletter/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -228,7 +228,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/newsletter/,json=newsletter)
+    requests.post(http://api.fedrelay.com/newsletter/,json=newsletter)
 
     NB: Le mail renseigné par le client sera envoyer dans DATABASE puis ensuite dans le compte MAILCHIMP
 
@@ -237,7 +237,7 @@ import requests
 '''
 ##============ SIMULATION DU PRIX DE LA LIVRAISON ==========##
 
-    url = http://127.0.0.1:8000/simulator/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/simulator/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -250,14 +250,14 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/simulator/,json=simulation)
+    requests.post(http://api.fedrelay.com/simulator/,json=simulation)
 
 '''
 
 '''
 ##============ ENREGISTREMENT D'UN PARTENARIAT ==========##
 
-    url = http://127.0.0.1:8000/partenariat/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/partenariat/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -274,7 +274,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/partenariat/,json=partenariat)
+    requests.post(http://api.fedrelay.com/partenariat/,json=partenariat)
 
 '''
 
@@ -283,7 +283,7 @@ import requests
 '''
 ##============ ENREGISTREMENT D'UN CONTACT ==========##
 
-    url = http://127.0.0.1:8000/contact/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/contact/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -297,7 +297,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/contact/,json=contact)
+    requests.post(http://api.fedrelay.com/contact/,json=contact)
 
 '''
 
@@ -305,7 +305,7 @@ import requests
 '''
 ##============ CREATION DU PROFIL D'UN USER ==========##
 
-    url = http://127.0.0.1:8000/dashbord/profil/ ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/dashbord/profil/ ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -323,7 +323,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://127.0.0.1:8000/dashbord/profil/,json=profil)
+    requests.post(http://api.fedrelay.com/dashbord/profil/,json=profil)
 
 '''
 

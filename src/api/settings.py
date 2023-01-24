@@ -25,6 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
+# SECRET_KEY = "django-insecure-12guxy3p^9by6zg=5mg+14s%-j50vqi+xo_ba(6v9k)2-!m7%2"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
@@ -111,9 +113,9 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fedrelay_db',
-        'USER': 'root',
-        # 'PASSWORD': 'fedrelay123',
+        'NAME': 'fedrelay_db',##anaz7484_fedrelay-api
+        'USER': 'root',##anaz7484_fedrelay
+        # 'PASSWORD': 'fedrelay123', ##DnBfG%hLwQHi
         'HOST': 'localhost',
         # 'PORT': '5432',
     }
