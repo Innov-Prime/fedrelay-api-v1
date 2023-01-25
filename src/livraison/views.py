@@ -15,33 +15,93 @@ from .utils import sendEmailBox
 
 import random
 
+from knox.models import AuthToken
 # Create your views here.
 
+def Post_Delivry_Authentication(request,kwargs):
+    ##MON CODE PERSONNALISE POUR VERIFIER SI LE USER EST CONNECTEE OU PAS##
+
+    #Récupération du token envoyé par le client
+    token_sent = kwargs['user_token']
+    user_id = request.data['user']
+
+    # print(user_id)
+    
+    #Recuperation des 8 premiers caractères du token envoyé par le client
+    one = token_sent[0]
+    two = token_sent[1]
+    tree = token_sent[2]
+    four = token_sent[3]
+    five = token_sent[4]
+    six = token_sent[5]
+    seven = token_sent[6]
+    eight = token_sent[7]
+    
+    #Formation du token de 8 caractères suivant le format qui se trouve dans la DB
+    user_token_formed = one+two+tree+four+five+six+seven+eight
+
+    #Verification de l'existance de ce token dans la DB
+    is_user_authenticated = AuthToken.objects.filter(token_key=user_token_formed,user_id=user_id)
+
+    #Action après vérification
+    return is_user_authenticated
+
+def Get_Delivry_Authentication(kwargs):
+    ##MON CODE PERSONNALISE POUR VERIFIER SI LE USER EST CONNECTEE OU PAS##
+
+    #Récupération du token envoyé par le client
+    token_sent = kwargs['user_token']
+    user_id = kwargs['user_id']
+
+    # print(user_id)
+    
+    #Recuperation des 8 premiers caractères du token envoyé par le client
+    one = token_sent[0]
+    two = token_sent[1]
+    tree = token_sent[2]
+    four = token_sent[3]
+    five = token_sent[4]
+    six = token_sent[5]
+    seven = token_sent[6]
+    eight = token_sent[7]
+    
+    #Formation du token de 8 caractères suivant le format qui se trouve dans la DB
+    user_token_formed = one+two+tree+four+five+six+seven+eight
+
+    #Verification de l'existance de ce token dans la DB
+    is_user_authenticated = AuthToken.objects.filter(token_key=user_token_formed,user_id=user_id)
+
+    #Action après vérification
+    return is_user_authenticated
+
 @api_view(['GET'])
-def GetAllDelivery(request,user_id):
-    query = Delivery.objects.filter(user_id=user_id).order_by('-id')
-    serialization = DeliverySerializer(query,many=True)
-    return Response(serialization.data)
-
-
-class GettingOneDelivery(generics.RetrieveAPIView):
-    queryset = Delivery.objects.all()
-    serializer_class = DeliverySerializer
-
+def GetAllDelivery(request,*args, **kwargs):
+    #VERIFIONS SI LE USER EST AUTHENTIFIE OU PAS
+    if Get_Delivry_Authentication(kwargs):
+        query = Delivery.objects.filter(user_id=kwargs['user_id']).order_by('-id')
+        serialization = DeliverySerializer(query,many=True)
+        return Response(serialization.data)
+    else:
+        return Response({"success":False, "detail":"Veuillez vous authentifier"})
 
 class AddingOneDelivery(generics.CreateAPIView):
     queryset = Delivery.objects.all()
     serializer_class = DeliverySerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
 
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        data = {'success':True}
-        # return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+        #VERIFIONS SI LE USER EST AUTHENTIFIE OU PAS
+        if Post_Delivry_Authentication(request,kwargs):
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            data = {'success':True}
+            # return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+        else:
+            return Response({"success":False, "detail":"Veuillez vous authentifier"})
 
 
 
@@ -92,36 +152,28 @@ class AddingOneDelivery(generics.CreateAPIView):
         else:
             print('echoué avec succes!!')
         
-        
-
-
-##================   =============##
-
-# #SUIVI D'UNE LIVRAISON
-# class FollowUpDelivery(generics.RetrieveAPIView):
-#     queryset = Delivery.objects.all()
-#     serializer_class = DeliverySerializer
-#     lookup_field = 'follow_code'
-
 
 ### SUIVI D'UNE LIVRAISON
 @api_view(['POST'])
-def FollowUpDelivery(request):
-    data = dict(request.data)
-    code_sent = data['follow_code']
-    query =  Delivery.objects.filter(follow_code=code_sent)
-    serialization = DeliverySerializer(query,many=True)
+def FollowUpDelivery(request, *args, **kwargs):
 
-    print(code_sent)
-    print(serialization.data)
+    #VERIFIONS SI LE USER EST AUTHENTIFIE OU PAS
+    if Get_Delivry_Authentication(kwargs):
+        data = dict(request.data)
+        code_sent = data['follow_code']
+        query =  Delivery.objects.filter(follow_code=code_sent)
+        serialization = DeliverySerializer(query,many=True)
 
-    if query:
-        # QUAND LA LIVRAISON EXISTE 
-        return Response(
-            {
-                'success':True,
-                'command_status':serialization.data[0]['status']
-            })
-    else:
-        # QUAND LA LIVRAISON N'EXISTE PAS
-        return Response({'success':False})
+        if query:
+            # QUAND LA LIVRAISON EXISTE 
+            return Response(
+                {
+                    'success':True,
+                    'command_status':serialization.data[0]['status']
+                })
+        else:
+            # QUAND LA LIVRAISON N'EXISTE PAS
+            return Response({'success':False,"detail":"Cette livraison n'existe pas!"})
+    
+    return Response({"success":False, "detail":"Veuillez vous authentifier"})
+    

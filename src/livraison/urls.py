@@ -3,8 +3,7 @@ from . import views
 
 urlpatterns = [
     # ====== USING GENERICS ====== #
-    path('<int:pk>/',views.GettingOneDelivery.as_view()),
-    path('create/',views.AddingOneDelivery.as_view()),
-    path('deliverys/<int:user_id>/',views.GetAllDelivery,name=''),
-    path('followUp/',views.FollowUpDelivery)
+    path('<str:user_token>/create',views.AddingOneDelivery.as_view()),
+    path('<user_id>/<str:user_token>/deliveries',views.GetAllDelivery,name=''),
+    path('<int:user_id>/<str:user_token>/followup',views.FollowUpDelivery)
 ]
