@@ -2,37 +2,39 @@ import requests
 
 # ======= USING MIXINGS ===== #
 
-# http://api.fedrelay.com/delivery/create/ ## ENREGISTREMENT D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/delivery/pk/ ## RECUPERATION DES DONNEES D'UNE LIVRAISON
-# http://api.fedrelay.com/delivery/deliverys/<user_id>/ ## RECUPERATION TOUTES LES LIVRAISON
-# http://api.fedrelay.com/delivery/followUp/ ## SUIVI D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/delivery/<str:user_token>/create ## ENREGISTREMENT D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/delivery//<user_id>/<str:user_token>/deliveries ## RECUPERATION TOUTES LES LIVRAISON
+# http://api.fedrelay.com/<int:user_id>/<str:user_token>/followup ## SUIVI D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
 
-# http://api.fedrelay.com/user/create/ ## CREATION DE COMPTE D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/user/login/ ## CONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/user/logout/ ## DECONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN TOKEN DANS LE HEADERS
+# http://api.fedrelay.com/user/create ## CREATION DE COMPTE D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/user/login ## CONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/user/logout ## DECONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN TOKEN DANS LE HEADERS
 # http://api.fedrelay.com/user/password_reset/ ## REINITIALISATION DE MOT DE PASSE ## ON DOIT LUI ENVOYER UN JSON DATA
 # http://api.fedrelay.com/user/password_reset/confirm/ ## CONFIRMATION DE LA REINITIALISATION DU MOT DE PASSE ## ON DOIT LUI ENVOYER UN JSON DATA
 
-# http://api.fedrelay.com/dashbord/profil/ ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
-
-# http://api.fedrelay.com/chat/client/ ## POST D'UN MESSAGE PAR UN CLIENT
 
 
-# http://api.fedrelay.com/dashbord/avatar/<user_id>/ ## MODIFICATION D'AVATAR POUR UN USER
+# http://api.fedrelay.com/chat/<user_token>/client ## POST D'UN MESSAGE PAR UN CLIENT
+# http://api.fedrelay.com/chat/<user_id>/<user_token>/client ## RECUPERATION DE TOUT LES CHATS D'UN USER
 
 
 
+# http://api.fedrelay.com/dashbord/<str:user_token>/profil ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/dashbord/<user_id>/<user_token>/avatar ## MODIFICATION D'AVATAR POUR UN USER
 
-# http://api.fedrelay.com/newsletter/ ## CREATION D'UN NEWSLETTER ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/simulator/ ## SIMULATION DU PRIX DE LA LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/partenariat/ ##ENREGISTREMENT D'UN PARTENARIAT## PARTENARIAT ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/contact/ ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
+
+
+
+# http://api.fedrelay.com/newsletter ## CREATION D'UN NEWSLETTER ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/simulator ## SIMULATION DU PRIX DE LA LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/partenariat ##ENREGISTREMENT D'UN PARTENARIAT## PARTENARIAT ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/contact ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
 
 
 ## FORMA DU DATA à ENVOYER AU COURS DE L'ENREGISTREMENT D'UNE LIVRAISON ##
 delivery = {
-    "user":1,
-    "client_id":1,
+    "user":2,
+    "client_id":2,
     "nomEmetteur": "SEDEGNAN",
     "prenomEmetteur": "Victoire",
     "telephoneEmetteur": "61765590",
@@ -55,7 +57,7 @@ delivery = {
 ## FORMA DU DATA à ENVOYER AU COURS DU SUIVI D'UNE LIVRAISON ##
 
 follow_code = {
-    'follow_code':"R17345W"
+    'follow_code':"R27531w"
 }
 
 # FORMA DU DATA à ENVOYER AU COURS DE L'ENVOIE D'UN NEWSLETTER ##
@@ -65,27 +67,27 @@ newsletter = {
 
 ## FORMA DU DATA à ENVOYER AU COURS LA CREATION D'UN COMPTE ##
 user = {
-    "username": "florent@gmail.com", ## ICI LE USER NE RENSEIGNE PAS SON USERNAME DANS LE FORMULAIRE. C'EST NOUS QUI LUI EN CREONS UN SOIT AVEC SON MAIL OU SON PHONE=====##
-    "email": "florent@gmail.com",
-    "phone":"45868655",
-    "password": "florent@123"
+    "username": "gogo@gmail.com", ## ICI LE USER NE RENSEIGNE PAS SON USERNAME DANS LE FORMULAIRE. C'EST NOUS QUI LUI EN CREONS UN SOIT AVEC SON MAIL OU SON PHONE=====##
+    "email": "gogo@gmail.com",
+    "phone":"",
+    "password": "Password@123"
 }
 
 ## FORMA DU DATA à ENVOYER AU COURS D'UNE CONNEXION à UN COMPTE ##
 user_login = {
-    "username": "florent@gmail.com",
-    "password": "florent@123"
+    "username": "gogo@gmail.com",
+    "password": "Password@123"
 }
 
 ## FORMA DU DATA à ENVOYER AU COURS D'ENVOIE DE MESSAGE PAR UN CLIENT ##
 chat_client = {
-    "user": 1,
+    "user": 2,
     "message":"Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée"
 }
 
 ## FORMA DU DATA à ENVOYER AU COURS D'ENVOIE DE MESSAGE PAR UN CLIENT ##
 avatar = {
-    "avatar":"me.jpg"
+    "avatar":"https://www.shutterstock.com/image-photo/portrait-positive-guy-specialist-sit-600w-1836307192.jpg"
 }
 
 ### FORMA DU DATA à ENVOYER AU COURS DE LA REINITIALISATION D'UN MOT DE PASSE ###
@@ -102,11 +104,11 @@ confirm_reset_password ={
 ### FORMA DU DATA à ENVOYER AU COURS DE LA CREATION D'UN PROFIL ###
 
 profil = {
-    'user':1, ## Ici il nous utilisons l'ID du user## Cet ID se retouve dans le JSON data renvoyé au client lors de la creation de compte 
-    "nom":"GOGO",
-    "prenom":"Christian",
+    'user':2, ## Ici il nous utilisons l'ID du user## Cet ID se retouve dans le JSON data renvoyé au client lors de la creation de compte 
+    "nom":"Setoh",
+    "prenom":"Victoire",
     "telephone":"6589654521",
-    "email":'florent@gmail.com',
+    "email":'setoh@gmail.com',
     "profession":'Ingénieur',
     "pays":'Bénin',
     "ville":'Cotonou',
@@ -146,14 +148,13 @@ contact = {
 
 # follow_code = '2'
 
-url = "http://127.0.0.1:8000/dashbord/avatar/1/"
+url = "http://127.0.0.1:8000/chat/2/49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697/client" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS POST
-response = requests.patch(url,json=avatar) 
-
+# response = requests.post(url,json=chat_client) 
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS GET
-# response = requests.get(url) 
+response = requests.get(url) 
 
 ## AFFICHAGE DES RESULTATS DES REQUETES
 print(response.json())

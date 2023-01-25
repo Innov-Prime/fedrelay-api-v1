@@ -12,14 +12,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Contact',
+            name='Relaypoint',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nom', models.CharField(max_length=200)),
-                ('prenom', models.CharField(max_length=200)),
-                ('telephone', models.CharField(max_length=200)),
-                ('message', models.CharField(max_length=600)),
-                ('created_date', models.DateField(auto_now=True)),
+                ('title', models.CharField(max_length=250)),
+                ('description', models.CharField(max_length=1000)),
+                ('status', models.BooleanField(default=False)),
+                ('localisation', models.CharField(max_length=100)),
+                ('map_address', models.CharField(max_length=100)),
             ],
         ),
     ]
