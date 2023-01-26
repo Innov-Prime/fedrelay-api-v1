@@ -16,6 +16,8 @@ from .utils import sendEmailBox
 import random
 
 from knox.models import AuthToken
+from rest_framework.permissions import IsAuthenticated
+from knox.auth import TokenAuthentication
 # Create your views here.
 
 def Post_Delivry_Authentication(request,kwargs):
@@ -74,35 +76,42 @@ def Get_Delivry_Authentication(kwargs):
     #Action après vérification
     return is_user_authenticated
 
-@api_view(['GET'])
-def GetAllDelivery(request,*args, **kwargs):
-    #VERIFIONS SI LE USER EST AUTHENTIFIE OU PAS
-    if Get_Delivry_Authentication(kwargs):
-        query = Delivery.objects.filter(user_id=kwargs['user_id']).order_by('-id')
-        serialization = DeliverySerializer(query,many=True)
-        return Response(serialization.data)
-    else:
-        return Response({"success":False, "detail":"Veuillez vous authentifier"})
+class GetAllDelivery(generics.ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = Delivery.objects.all().order_by('-id')
+    serializer_class = DeliverySerializer
+    lookup_field = 'user_id'
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 class AddingOneDelivery(generics.CreateAPIView):
+    
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     queryset = Delivery.objects.all()
     serializer_class = DeliverySerializer
 
     def create(self, request, *args, **kwargs):
 
-        #VERIFIONS SI LE USER EST AUTHENTIFIE OU PAS
-        if Post_Delivry_Authentication(request,kwargs):
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            data = {'success':True}
-            # return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-            return Response(data, status=status.HTTP_201_CREATED, headers=headers)
-        else:
-            return Response({"success":False, "detail":"Veuillez vous authentifier"})
-
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        data = {'success':True}
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 
     def perform_create(self, serializer):
@@ -152,28 +161,23 @@ class AddingOneDelivery(generics.CreateAPIView):
         else:
             print('echoué avec succes!!')
         
+class FollowUpDelivery(generics.RetrieveAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
-### SUIVI D'UNE LIVRAISON
-@api_view(['POST'])
-def FollowUpDelivery(request, *args, **kwargs):
+    queryset = Delivery.objects.all()
+    serializer_class = DeliverySerializer
+    lookup_field = 'follow_code'
 
-    #VERIFIONS SI LE USER EST AUTHENTIFIE OU PAS
-    if Get_Delivry_Authentication(kwargs):
-        data = dict(request.data)
-        code_sent = data['follow_code']
-        query =  Delivery.objects.filter(follow_code=code_sent)
-        serialization = DeliverySerializer(query,many=True)
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
 
-        if query:
-            # QUAND LA LIVRAISON EXISTE 
-            return Response(
-                {
-                    'success':True,
-                    'command_status':serialization.data[0]['status']
-                })
-        else:
-            # QUAND LA LIVRAISON N'EXISTE PAS
-            return Response({'success':False,"detail":"Cette livraison n'existe pas!"})
-    
-    return Response({"success":False, "detail":"Veuillez vous authentifier"})
-    
+        if serializer.data:
+            data = {
+                        'success':True,
+                        'command_status':serializer.data['status']
+                    }
+
+            return Response(data)
+        return Response(serializer.data)

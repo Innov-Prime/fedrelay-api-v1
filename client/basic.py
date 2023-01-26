@@ -2,9 +2,9 @@ import requests
 
 # ======= USING MIXINGS ===== #
 
-# http://api.fedrelay.com/delivery/<str:user_token>/create ## ENREGISTREMENT D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/delivery//<user_id>/<str:user_token>/deliveries ## RECUPERATION TOUTES LES LIVRAISON
-# http://api.fedrelay.com/<int:user_id>/<str:user_token>/followup ## SUIVI D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/delivery/create ## ENREGISTREMENT D'UNE LIVRAISON ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
+# http://api.fedrelay.com/delivery/<user_id>/deliveries ## RECUPERATION TOUTES LES LIVRAISON ##LE TOKEN EST PASSE EN HEADERS
+# http://api.fedrelay.com/<srt:follow_code>/followup ## SUIVI D'UNE LIVRAISON ## LE TOKEN EST PASSE EN HEADERS
 
 # http://api.fedrelay.com/user/create ## CREATION DE COMPTE D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
 # http://api.fedrelay.com/user/login ## CONNEXION D'UN USER ## ON DOIT LUI ENVOYER UN JSON DATA
@@ -14,13 +14,13 @@ import requests
 
 
 
-# http://api.fedrelay.com/chat/<user_token>/client ## POST D'UN MESSAGE PAR UN CLIENT
-# http://api.fedrelay.com/chat/<user_id>/<user_token>/client ## RECUPERATION DE TOUT LES CHATS D'UN USER
+# http://api.fedrelay.com/chat/client ## POST D'UN MESSAGE PAR UN CLIENT ## LE TOKEN EST PASSE EN HEADERS
+# http://api.fedrelay.com/chat/<user_id>/client ## RECUPERATION DE TOUT LES CHATS D'UN USER ## LE TOKEN EST PASSE EN HEADERS
 
 
 
-# http://api.fedrelay.com/dashboard/<str:user_token>/profil ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/dashboard/<user_id>/<user_token>/avatar ## MODIFICATION D'AVATAR POUR UN USER
+# http://api.fedrelay.com/dashboard/profil ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
+# http://api.fedrelay.com/dashboard/<user_id>/avatar ## MODIFICATION D'AVATAR POUR UN USER ## LE TOKEN EST PASSE EN HEADERS
 
 
 
@@ -33,8 +33,8 @@ import requests
 
 ## FORMA DU DATA à ENVOYER AU COURS DE L'ENREGISTREMENT D'UNE LIVRAISON ##
 delivery = {
-    "user":2,
-    "client_id":2,
+    "user":1,
+    "client_id":1,
     "nomEmetteur": "SEDEGNAN",
     "prenomEmetteur": "Victoire",
     "telephoneEmetteur": "61765590",
@@ -54,11 +54,6 @@ delivery = {
     "description": "Trois sacs de riz et de banane"
 }
 
-## FORMA DU DATA à ENVOYER AU COURS DU SUIVI D'UNE LIVRAISON ##
-
-follow_code = {
-    'follow_code':"R27531w"
-}
 
 # FORMA DU DATA à ENVOYER AU COURS DE L'ENVOIE D'UN NEWSLETTER ##
 newsletter = {
@@ -148,13 +143,13 @@ contact = {
 
 # follow_code = '2'
 
-url = "http://127.0.0.1:8000/chat/2/49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697/client" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
+url = "http://127.0.0.1:8000/user/login" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS POST
-# response = requests.post(url,json=chat_client) 
+response = requests.post(url,json=user_login) 
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS GET
-response = requests.get(url) 
+# response = requests.get(url) 
 
 ## AFFICHAGE DES RESULTATS DES REQUETES
 print(response.json())
