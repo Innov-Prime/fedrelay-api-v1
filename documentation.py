@@ -96,7 +96,7 @@ import requests
 '''
 ##============ CREATION DU PROFIL D'UN USER ==========##
 
-    url = http://api.fedrelay.com/dashboard/<str:user_token>/profil ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/dashboard/profil ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
 
     FORME DU DATA JSON à ENVOYER
 
@@ -114,7 +114,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/dashboard/<str:user_token>/profil,json=profil)
+    requests.post(http://api.fedrelay.com/dashboard/profil,json=profil)
 
 '''
 
@@ -122,7 +122,7 @@ import requests
 '''
 ##============ MODIFICATION D'UN AVATAR POUR UN USER ==========##
 
-    url = http://api.fedrelay.com/dashboard/<int:user_id>/<str:user_token>/avatar ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/dashboard/<int:user_id>/avatar ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
 
     FORME DU DATA JSON à ENVOYER
 
@@ -131,7 +131,7 @@ import requests
     }
     EXEMPLE DE REQUEST:
 
-    requests.patch(http://api.fedrelay.com/dashboard/<int:user_id>/<str:user_token>/avatar)
+    requests.patch(http://api.fedrelay.com/dashboard/<int:user_id>/avatar)
 
     NB: ICI LA METHODE PATCH EST REQUISE. CETTE REQUETE NE MARCHE PAS AVEC LA METHODE PUT
 '''
@@ -141,7 +141,7 @@ import requests
 '''
 ##============ ENREGISTREMENT D'UNE LIVRAISON==========##
 
-    url = http://api.fedrelay.com/delivery/<str:user_token>/create ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/delivery/create ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
 
     FORME DU DATA JSON à ENVOYER
 
@@ -169,34 +169,28 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/delivery/<str:user_token>/create,json=delivery)
+    requests.post(http://api.fedrelay.com/delivery/create,json=delivery)
 
 '''
 
 '''
 ##============ RECUPERATION DE TOUTE LES LIVRAISONS D'UN USER==========##
 
-    url = http://api.fedrelay.com/delivery/<user_id>/<str:user_token>/deliveries ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
+    url = http://api.fedrelay.com/delivery/<user_id>/deliveries ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS 
 
     EXEMPLE DE REQUEST:
 
-    requests.GET(http://api.fedrelay.com/delivery/deliverys/<user_id>/<str:user_token>/)
+    requests.GET(http://api.fedrelay.com/delivery/deliverys/<user_id>/deliveries)
 '''
 
 '''
 ##============ SUIVI D'UNE LIVRAISON ==========##
 
-    url = http://api.fedrelay.com/delivery/<int:user_id>/<str:user_token>/followup ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT 
-
-    FORME DU DATA JSON à ENVOYER
-
-    follow_code = {
-        'follow_code':"R17345W"
-    }
+    url = http://api.fedrelay.com/delivery/<str:follow_code>/followup ## ON DOIT LUI ENVOYER UN JSON DATA VOIR LE POINT ## LE TOKEN EST PASSE EN HEADERS
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/delivery/<int:user_id>/<str:user_token>/followup,json=follow_code)
+    requests.get(http://api.fedrelay.com/delivery/<int:foloow_code>/followup)
 
     RETURN:
 
@@ -206,18 +200,6 @@ import requests
         'command_status': 'En cours',##Ici C'est l'etat de la commande qui est renvoyé
     }
 
-    EN CAS D'ECHEC::
-
-    {
-        'success': False, ## Ceci veut dire que la commande n'existe meme pas
-    }
-
-    EN CAS DE NON AUTHENTIFICATION:
-
-    {
-        "detail":"Veuillez vous authentifier"
-    }
-
 '''
 
 
@@ -225,7 +207,7 @@ import requests
 '''
 ##============ ENVOIE DE MESSAGE DANS LE CHAT PAR UN CLIENT ==========##
 
-    url = http://api.fedrelay.com/chat/<user_token>/client ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/chat/client ## ON DOIT LUI ENVOYER UN JSON DATA  ## LE TOKEN EST PASSE EN HEADERS
 
     FORME DU DATA JSON à ENVOYER
 
@@ -235,18 +217,18 @@ import requests
     }
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/chat/<user_token>/client,json=chat_client)
+    requests.post(http://api.fedrelay.com/chat/client,json=chat_client)
 '''
 
 
 '''
 ##============ RECUPERATION DE TOUT LES CHATS D'UN USER ==========##
 
-    url = http://api.fedrelay.com/chat/<user_id>/<user_token>/client
+    url = http://api.fedrelay.com/chat/<user_id>/client ## LE TOKEN EST PASSE EN HEADERS
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/chat/<user_id>/<user_token>/client)
+    requests.post(http://api.fedrelay.com/chat/<user_id>/client)
 '''
 
 
