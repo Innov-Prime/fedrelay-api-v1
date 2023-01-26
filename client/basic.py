@@ -19,8 +19,8 @@ import requests
 
 
 
-# http://api.fedrelay.com/dashbord/<str:user_token>/profil ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
-# http://api.fedrelay.com/dashbord/<user_id>/<user_token>/avatar ## MODIFICATION D'AVATAR POUR UN USER
+# http://api.fedrelay.com/dashboard/<str:user_token>/profil ## CREATION DE PROFIL ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://api.fedrelay.com/dashboard/<user_id>/<user_token>/avatar ## MODIFICATION D'AVATAR POUR UN USER
 
 
 

@@ -96,7 +96,7 @@ import requests
 '''
 ##============ CREATION DU PROFIL D'UN USER ==========##
 
-    url = http://api.fedrelay.com/dashbord/<str:user_token>/profil ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/dashboard/<str:user_token>/profil ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -114,7 +114,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/dashbord/<str:user_token>/profil,json=profil)
+    requests.post(http://api.fedrelay.com/dashboard/<str:user_token>/profil,json=profil)
 
 '''
 
@@ -122,7 +122,7 @@ import requests
 '''
 ##============ MODIFICATION D'UN AVATAR POUR UN USER ==========##
 
-    url = http://api.fedrelay.com/dashbord/<int:user_id>/<str:user_token>/avatar ## ON DOIT LUI ENVOYER UN JSON DATA 
+    url = http://api.fedrelay.com/dashboard/<int:user_id>/<str:user_token>/avatar ## ON DOIT LUI ENVOYER UN JSON DATA 
 
     FORME DU DATA JSON à ENVOYER
 
@@ -131,7 +131,7 @@ import requests
     }
     EXEMPLE DE REQUEST:
 
-    requests.patch(http://api.fedrelay.com/dashbord/<int:user_id>/<str:user_token>/avatar)
+    requests.patch(http://api.fedrelay.com/dashboard/<int:user_id>/<str:user_token>/avatar)
 
     NB: ICI LA METHODE PATCH EST REQUISE. CETTE REQUETE NE MARCHE PAS AVEC LA METHODE PUT
 '''

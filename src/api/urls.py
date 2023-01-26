@@ -23,7 +23,7 @@ urlpatterns = [
     path('newsletter',include('newsletter.urls')),
     path('simulator',include('simulation.urls')),
 
-    path('dashbord/',include('profil.urls')),
+    path('dashboard/',include('profil.urls')),
 
     path('partenariat',include('partenariat.urls')),
     path('contact',include('contact.urls')),
