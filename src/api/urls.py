@@ -25,6 +25,8 @@ urlpatterns = [
 
     path('dashboard/',include('profil.urls')),
 
+    path('relaypoints',include('pointrelais.urls')),
+
     path('partenariat',include('partenariat.urls')),
     path('contact',include('contact.urls')),
 

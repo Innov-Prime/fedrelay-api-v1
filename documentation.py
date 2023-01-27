@@ -202,6 +202,27 @@ import requests
 
 '''
 
+'''
+##============ RECUPERATION DE TOUT LES POINTS RELAIS ==========##
+
+    url = http://api.fedrelay.com/relaypoints ## LE TOKEN EST PASSE EN HEADERS
+
+    EXEMPLE DE REQUEST:
+
+    requests.get(http://api.fedrelay.com/relaypoints)
+
+'''
+
+'''
+##============ RECUPERATION DE TOUT LES POINTS RELAIS  D'UN QUARTIER==========##
+
+    url = http://api.fedrelay.com/8000/relaypoints/<quarter_id> ## LE TOKEN EST PASSE EN HEADERS
+
+    EXEMPLE DE REQUEST:
+
+    requests.get(http://api.fedrelay.com/8000/relaypoints/<quarter_id>)
+
+'''
 
 
 '''
