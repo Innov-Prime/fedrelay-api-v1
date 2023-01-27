@@ -36,6 +36,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
+# CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -91,10 +93,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'api.urls'
 
@@ -128,9 +128,9 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'anaz7484_fedrelay-api',
-        'USER': 'anaz7484_fedrelay',
-        'PASSWORD': 'DnBfG%hLwQHi',
+        'NAME': 'anaz7484_db_fedrelay_api',
+        'USER': 'anaz7484_user_fedrelay_api',
+        'PASSWORD': 'ZW]lVG-]SP?d',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -205,3 +205,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Make sure that BASE_DIR is defined somewhere at the top
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = BASE_DIR / "staticfiles"
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ORIGIN_ALLOW_ALL = True

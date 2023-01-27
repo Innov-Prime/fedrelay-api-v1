@@ -30,6 +30,11 @@ import requests
 # http://api.fedrelay.com/partenariat ##ENREGISTREMENT D'UN PARTENARIAT## PARTENARIAT ## ON DOIT LUI ENVOYER UN JSON DATA
 # http://api.fedrelay.com/contact ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
 
+# http://127.0.0.1:8000/relaypoints ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
+# http://127.0.0.1:8000/1/relaypoints ## ENREGISTREMENT D'UN CONTACT ## ## ON DOIT LUI ENVOYER UN JSON DATA
+
+
+# Token online: 3f1f880542479b363bef73b75e2e6f3b208714f5858abbd64af0522aa7114e9c
 
 ## FORMA DU DATA à ENVOYER AU COURS DE L'ENREGISTREMENT D'UNE LIVRAISON ##
 delivery = {
@@ -143,13 +148,13 @@ contact = {
 
 # follow_code = '2'
 
-url = "http://127.0.0.1:8000/user/login" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
+url = "http://127.0.0.1:8000/relaypoints/1" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS POST
-response = requests.post(url,json=user_login) 
+# response = requests.post(url,json=user_login) 
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS GET
-# response = requests.get(url) 
+response = requests.get(url) 
 
 ## AFFICHAGE DES RESULTATS DES REQUETES
 print(response.json())
