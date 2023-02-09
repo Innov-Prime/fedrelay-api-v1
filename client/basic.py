@@ -70,13 +70,13 @@ user = {
     "username": "gogo@gmail.com", ## ICI LE USER NE RENSEIGNE PAS SON USERNAME DANS LE FORMULAIRE. C'EST NOUS QUI LUI EN CREONS UN SOIT AVEC SON MAIL OU SON PHONE=====##
     "email": "gogo@gmail.com",
     "phone":"",
-    "password": "Password@123"
+    "password": "Password@1315"
 }
 
 ## FORMA DU DATA à ENVOYER AU COURS D'UNE CONNEXION à UN COMPTE ##
 user_login = {
-    "username": "gogo@gmail.com",
-    "password": "Password@123"
+    "username": "gogochristian009@gmail.com",
+    "password": "Password@1315"
 }
 
 ## FORMA DU DATA à ENVOYER AU COURS D'ENVOIE DE MESSAGE PAR UN CLIENT ##
@@ -148,13 +148,13 @@ contact = {
 
 # follow_code = '2'
 
-url = "http://127.0.0.1:8000/relaypoints/1" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
+url = "http://api.fedrelay.com/user/login" # 49d59c6796fcc8617683d07a784a273ae122b8d84527b4e36f1ece25f93a3697
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS POST
-# response = requests.post(url,json=user_login) 
+response = requests.post(url,json=user_login) 
 
 ## FORMA DE REQUEST à UTILISER POUR LES REQUESTS GET
-response = requests.get(url) 
+# response = requests.get(url) 
 
 ## AFFICHAGE DES RESULTATS DES REQUETES
 print(response.json())
