@@ -36,8 +36,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -205,5 +205,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Make sure that BASE_DIR is defined somewhere at the top
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = BASE_DIR / "staticfiles"
-CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ORIGIN_ALLOW_ALL = True

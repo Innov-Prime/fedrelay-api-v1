@@ -46,7 +46,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.post(http://api.fedrelay.com/user/logout)
+    requests.post(https://api.fedrelay.com/user/logout)
 
 '''
 
@@ -180,7 +180,7 @@ import requests
 
     EXEMPLE DE REQUEST:
 
-    requests.GET(http://api.fedrelay.com/delivery/deliverys/<user_id>/deliveries)
+    requests.GET(http://api.fedrelay.com/delivery/<user_id>/deliveries)
 '''
 
 '''
