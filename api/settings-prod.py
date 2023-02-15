@@ -18,41 +18,49 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = config('SECRET_KEY')
+
 SECRET_KEY = 'django-insecure-12guxy3p^9by6zg=5mg+14s%-j50vqi+xo_ba(6v9k)2-!m7%2'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-# ALLOWED_HOSTS = []
-
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOWED_ORIGINS = [
+    "www.fedrelay.com",
+    "fedrelay.com",
+    "http://localhost:5173",
+    "https://fedrelay.com"
+]
 # Application definition
 
 INSTALLED_APPS = [
     # WHITENOISE ADDED
     "whitenoise.runserver_nostatic",
     
-    "django.contrib.staticfiles",
-    
+    # Django contrib apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
+    
+    # Third-party apps
+    'rest_framework',
+    'knox',
+    'django_rest_passwordreset',
+    
 
+    # Project apps
     'livraison',
     'signup',
     'pointrelais',
@@ -62,10 +70,7 @@ INSTALLED_APPS = [
     'contact',
     'profil',
     'chat',
-
-    'rest_framework',
-    'knox',
-    'django_rest_passwordreset',
+    
     'corsheaders',
 ]
 
@@ -82,7 +87,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+
     'django.middleware.security.SecurityMiddleware',
     # WHITENOISE ADDED
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -90,11 +96,11 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'api.urls'
 
@@ -123,7 +129,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3', 
     # },
 
     'default': {
@@ -204,5 +210,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Make sure that BASE_DIR is defined somewhere at the top
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
-# CORS_ORIGIN_ALLOW_ALL = True

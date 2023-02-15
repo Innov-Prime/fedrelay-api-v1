@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from .models import MyUser 
 
 from .utils import sendEmailBox
 from rest_framework.response import Response
@@ -7,19 +8,19 @@ from rest_framework.response import Response
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = MyUser
         fields = ('id', 'username', 'email','phone')
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = MyUser
         fields = ('id', 'username', 'email','phone', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         #### ==== ENREGISTREMENT DU USER ===== ####
-        user = User.objects.create_user(validated_data['username'], validated_data['email'],validated_data['phone'], validated_data['password'])
+        user = MyUser.objects.create_user(validated_data['username'], validated_data['email'],validated_data['phone'], validated_data['password'])
 
         #======= ENVOIE DE MAIL AU RECEIVER ======#
         email = validated_data['email']
@@ -39,7 +40,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class ChangePasswordSerializer(serializers.Serializer):
-    model = User
+    model = MyUser
 
     """
     Serializer for password change endpoint.
