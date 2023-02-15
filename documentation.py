@@ -14,6 +14,9 @@ import requests
         "password": "Password@123"
     }
 
+    NB: APRES CREATION DE COMPTE, LE PROFIL DU USER EST CREER AUTOMATIQUEMENT ET LUI EST RENVOYEE
+    
+
     EXEMPLE DE REQUEST:
 
     requests.post(http://api.fedrelay.com/user/create,json=user)
@@ -35,6 +38,9 @@ import requests
     EXEMPLE DE REQUEST:
 
     requests.post(http://api.fedrelay.com/user/login,json=user_login)
+
+    NB: APRES LOGIN DU USER, LES INFOS DE SON PROFIL LUI SONT AUTOMATIQUEMENT RENVOYEE.
+
 
 '''
 
@@ -93,15 +99,15 @@ import requests
 
 '''
 
-'''
-##============ CREATION DU PROFIL D'UN USER ==========##
 
-    url = http://api.fedrelay.com/dashboard/profil ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
+'''
+##============ MODIFICATION DU PROFIL POUR UN USER ==========##
+
+    url = http://api.fedrelay.com/user/<int:user_id>/profil ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
 
     FORME DU DATA JSON à ENVOYER
 
     profil = {
-        'user':1, ## Ici il nous utilisons l'ID du user## Cet ID se retouve dans le JSON data renvoyé au client lors de la creation de compte 
         "nom":"GOGO",
         "prenom":"Christian",
         "telephone":"6589654521",
@@ -110,33 +116,15 @@ import requests
         "pays":'Bénin',
         "ville":'Cotonou',
         "quartier":"Finanfa"
-    }
-
-    EXEMPLE DE REQUEST:
-
-    requests.post(http://api.fedrelay.com/dashboard/profil,json=profil)
-
-'''
-
-
-'''
-##============ MODIFICATION D'UN AVATAR POUR UN USER ==========##
-
-    url = http://api.fedrelay.com/dashboard/<int:user_id>/avatar ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
-
-    FORME DU DATA JSON à ENVOYER
-
-    avatar = {
         "avatar":"https://www.shutterstock.com/image-photo/portrait-positive-guy-specialist-sit-600w-1836307192.jpg" ## Renseigner ici l'URL de votre nouvelle image
     }
     EXEMPLE DE REQUEST:
 
-    requests.patch(http://api.fedrelay.com/dashboard/<int:user_id>/avatar)
+    requests.patch(http://api.fedrelay.com/user/<int:user_id>/profil)
 
     NB: ICI LA METHODE PATCH EST REQUISE. CETTE REQUETE NE MARCHE PAS AVEC LA METHODE PUT
+    LA REPONSE RETOURNEE COMPORTE TOUTES LES INFORMATIONS DU PROFIL DU USER
 '''
-
-
 
 '''
 ##============ ENREGISTREMENT D'UNE LIVRAISON==========##
