@@ -28,6 +28,11 @@ from knox.auth import TokenAuthentication
 #         # return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 #         return Response(data,status=status.HTTP_201_CREATED,headers=headers)
 
+class RetrieveProfil(generics.RetrieveAPIView):
+    queryset = ProfilModel.objects.all()
+    serializer_class = ProfilSerializer
+    lookup_field = 'user_id'
+
 class UpdateProfile(generics.UpdateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
