@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+# from .models import User 
 
 from .utils import sendEmailBox
 from rest_framework.response import Response

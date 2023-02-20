@@ -108,50 +108,53 @@ class AddingOneDelivery(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        self.perform_create(serializer)
+        self.perform_create(request,serializer)
         headers = self.get_success_headers(serializer.data)
         data = {'success':True}
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-    def perform_create(self, serializer):
+    def perform_create(self,request,serializer):
         #======= ENVOIE DE MAIL AU RECEIVER ======#
         client_id = serializer.validated_data.get('client_id')
         sender_name = serializer.validated_data.get('nomEmetteur')
         sender_lastname = serializer.validated_data.get('prenomEmetteur')
 
+        colis_sender_email = request.user.email
         colis_receiver_email = serializer.validated_data.get('emailDestinataire')
-        colis_recever_name = serializer.validated_data.get('nomDestinataire')
-        name = serializer.validated_data.get('nomEmetteur')
+        nomDestinataire = serializer.validated_data.get('nomDestinataire')
+        prenomDestinataire = serializer.validated_data.get('prenomDestinataire')
 
-        subject = "Livraison sur FedRelay"
-        template = 'livraison_email.html'
+        nomEmetteur = serializer.validated_data.get('nomEmetteur')
+        prenomEmetteur = serializer.validated_data.get('prenomEmetteur')
+
+        print(colis_sender_email)
 
         #### FORMATION DU CODE DE SUIVI ####
         list = ["A","B","C","D","E","F","G","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
         letter_rand = random.choice(list)
         rand = random.randint(0,10000)
 
-        print(client_id)
-
         # now = datetime.now()
         # timestamp = datetime.timestamp(now)
         # follow_code = "##"+str(timestamp) +"##" ### CODE DE SUIVI
         follow_code = "R"+str(client_id)+str(rand)+letter_rand ### CODE DE SUIVI
-        print(follow_code)
 
         serializer.validated_data['follow_code']=follow_code
 
+        subject = "Livraison sur FedRelay"
+        template = 'livraison_email.html'
+
         context = {
-            'name':name,
+            'name':nomEmetteur + ' ' + prenomEmetteur,
             'date':datetime.today().date,
-            'colis_recever_name':colis_recever_name,
+            'colis_recever_name':nomDestinataire + ' '+ prenomDestinataire,
             'follow_code':follow_code,
             'sender_name':sender_name,
             'sender_lastname':sender_lastname
         }
         
-        receivers = [colis_receiver_email]
+        receivers = [colis_sender_email]
 
         has_send = sendEmailBox(subject=subject,receivers=receivers,template=template,context=context)
 

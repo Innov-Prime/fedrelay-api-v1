@@ -37,6 +37,23 @@ class RegisterAPI(generics.CreateAPIView):
         user = serializer.save()
         userProfil = CreateProfile.create(self, request,user,*args, **kwargs)
 
+        #======= ENVOIE DE MAIL AU RECEIVER ======#
+        email = request.data.get('email')
+
+        subject = " Inscription sur FedRelay"
+        template = 'signup_email.html'
+
+        context = {
+            'email':email,
+        }
+        receivers = [email]
+        has_send = sendEmailBox(subject=subject,receivers=receivers,template=template,context=context)
+
+        if has_send:
+            print('envoyé avec succes!!')
+        else:
+            print("L'envoie de mail a échoué!!")
+
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1],
@@ -60,22 +77,6 @@ class LoginAPI(KnoxLoginView):
         # print(request.data['username'])
         
         login(request, user)
-
-        #======= ENVOIE DE MAIL AU RECEIVER ======#
-        email = request.data['username']
-
-        subject = "Connexion sur FedRelay"
-        template = 'login.html'
-        context = {
-            'email':email,
-        }
-        receivers = [email]
-        has_send = sendEmailBox(subject=subject,receivers=receivers,template=template,context=context)
-
-        if has_send:
-            print('envoyé avec succes!!')
-        else:
-            print("L'envoie de mail a échoué!!")
 
         profil = ProfilModel.objects.get(user=user)
         userProfile =  model_to_dict(profil)

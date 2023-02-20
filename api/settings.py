@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
-# from decouple import config
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -200,6 +200,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 
+# LOCALHOST
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '9ed08af8bbe459'
+EMAIL_HOST_PASSWORD = '6877fff64d8445'
+EMAIL_PORT = '2525'
+
+# ONLINE HOST
+# EMAIL_HOST = 'live.smtp.mailtrap.io'
+# EMAIL_HOST_USER = 'api'
+# EMAIL_HOST_PASSWORD = '755004a46f869b68af1402fc366a7f36'
+# EMAIL_PORT = '587'
+
 # MAIL_MAILER=smtp
 # MAIL_HOST=send.smtp.mailtrap.io
 # MAIL_PORT=587 
@@ -211,5 +223,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # MAIL_FROM_NAME="${APP_NAME}"
 
 # Make sure that BASE_DIR is defined somewhere at the top
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = BASE_DIR / "staticfiles"
