@@ -8,9 +8,8 @@ import requests
     FORME DU DATA JSON à ENVOYER
 
     user = {
-        "username": "gogochristian009@gmail.com",## ICI LE USER NE RENSEIGNE PAS SON USERNAME DANS LE FORMULAIRE. C'EST NOUS QUI LUI EN CREONS UN SOIT AVEC SON MAIL OU SON PHONE=====##
-        "email": "gogochristian009@gmail.com",
-        "phone":"6589654521",
+        "username": "gogochristian009@gmail.com or 6176559012",## ICI LE USER NE RENSEIGNE PAS SON USERNAME DANS LE FORMULAIRE. C'EST NOUS QUI LUI EN CREONS UN SOIT AVEC SON phone_Or_email=====##
+        "phone_Or_email": "gogochristian009@gmail.com or 6176559012",
         "password": "Password@123"
     }
 
@@ -122,19 +121,10 @@ import requests
 
     requests.patch(http://api.fedrelay.com/user/<int:user_id>/profil)
 
-    NB: ICI LA METHODE PATCH EST REQUISE. CETTE REQUETE NE MARCHE PAS AVEC LA METHODE PUT
+    NB: 
+    ==> ICI LA METHODE PATCH EST REQUISE. CETTE REQUETE NE MARCHE PAS AVEC LA METHODE PUT
+    ==> ICI AUCUN CHAMP N'EST REQUIS. VOUS POUVEZ MODIFIER UN SEUL CHAMP 
     LA REPONSE RETOURNEE COMPORTE TOUTES LES INFORMATIONS DU PROFIL DU USER
-'''
-
-
-'''
-##============ RECUPERATION DU PROFIL POUR UN USER ==========##
-
-    url = http://api.fedrelay.com/user/<int:user_id>/getprofil ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
-
-    EXEMPLE DE REQUEST:
-
-    requests.get(http://api.fedrelay.com/user/<int:user_id>/getprofil)
 '''
 
 '''
@@ -175,7 +165,7 @@ import requests
 '''
 ##============ RECUPERATION DE TOUTE LES LIVRAISONS D'UN USER==========##
 
-    url = http://api.fedrelay.com/delivery/<user_id>/deliveries ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS 
+    url = http://api.fedrelay.com/delivery/<user_id>/deliveries ## LE TOKEN EST PASSE EN HEADERS 
 
     EXEMPLE DE REQUEST:
 
@@ -328,6 +318,7 @@ import requests
         "nom":"Bobo Contact",
         "prenom":"Deg contact",
         "telephone":"Chine contact",
+        "object":"Mon objet",
         "message":"Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum",
     }
 

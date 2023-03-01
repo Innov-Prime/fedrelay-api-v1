@@ -80,12 +80,14 @@ class GetAllDelivery(generics.ListAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    queryset = Delivery.objects.all().order_by('-id')
     serializer_class = DeliverySerializer
-    lookup_field = 'user_id'
+
+    def get_queryset(self, request, *args, **kwargs):
+        return Delivery.objects.filter(user=kwargs['user_id']).order_by('-id')
+
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.filter_queryset(self.get_queryset(self, request, *args, **kwargs))
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -120,7 +122,7 @@ class AddingOneDelivery(generics.CreateAPIView):
         sender_name = serializer.validated_data.get('nomEmetteur')
         sender_lastname = serializer.validated_data.get('prenomEmetteur')
 
-        colis_sender_email = request.user.email
+        colis_sender_email = request.user.phone_Or_email
         colis_receiver_email = serializer.validated_data.get('emailDestinataire')
         nomDestinataire = serializer.validated_data.get('nomDestinataire')
         prenomDestinataire = serializer.validated_data.get('prenomDestinataire')

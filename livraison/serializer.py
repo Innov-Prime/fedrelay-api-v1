@@ -26,5 +26,6 @@ class DeliverySerializer(serializers.ModelSerializer):
         "typeColis",
         "poids",
         "description",
-        "status",
-        "follow_code")
+        "follow_code",
+        "created_date",
+        )

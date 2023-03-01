@@ -29,7 +29,13 @@ class Delivery(models.Model):
     description = models.TextField(max_length = 500)
 
     follow_code = models.CharField(max_length = 200,null=True)
-    status = models.CharField(max_length = 200,default="En cours")
+
+    is_lancement = models.BooleanField(default=True)
+    is_enlevement = models.BooleanField(default=False)
+    is_acheminement = models.BooleanField(default=False)
+    is_reception = models.BooleanField(default=False)
+    is_termine = models.BooleanField(default=False)
+
     client_id = models.IntegerField()
 
     ##================= RELATION ENTRE LE USER ET LA LIVRAISON =============##
