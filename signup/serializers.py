@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-# from .models import User 
 
 from .utils import sendEmailBox
 from rest_framework.response import Response
@@ -9,21 +8,21 @@ from rest_framework.response import Response
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email','phone')
+        fields = ('id', 'username', 'phone_Or_email')
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email','phone', 'password')
+        fields = ('id', 'username', 'phone_Or_email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         #### ==== ENREGISTREMENT DU USER ===== ####
-        user = User.objects.create_user(validated_data['username'], validated_data['email'],validated_data['phone'], validated_data['password'])
+        user = User.objects.create_user(validated_data['username'], validated_data['phone_Or_email'], validated_data['password'])
 
         #======= ENVOIE DE MAIL AU RECEIVER ======#
-        email = validated_data['email']
+        email = validated_data['phone_Or_email']
 
         subject = "Inscription sur FedRelay"
         template = 'signup_email.html'

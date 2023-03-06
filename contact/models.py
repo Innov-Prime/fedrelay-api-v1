@@ -7,6 +7,7 @@ class Contact(models.Model):
     prenom = models.CharField(max_length=200)
     telephone = models.CharField(max_length=200)
     message = models.CharField(max_length=600)
+    object = models.CharField(max_length=600)
     created_date = models.DateField(auto_now=True)
 
     def __str__(self):

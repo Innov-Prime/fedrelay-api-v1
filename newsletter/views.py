@@ -30,14 +30,18 @@ class EmailRegister(generics.CreateAPIView):
 # 
 
     def perform_create(self, serializer):
-        #======= SETTING DU MAILCHIMP POUR ENVOIE DE MAIL =====#
-
         email = serializer.validated_data.get('email')
+
+        ### ENREGISTREMENT DU MAIL DANS LA DB ###
+        serializer.save()
+
+
+        #======= SETTING DU MAILCHIMP POUR ENVOIE DE MAIL =====#
 
         mailchimp = MailchimpMarketing.Client()
 
         mailchimp.set_config({
-            "api_key": "61ef1f76dccd299600db1d4ef5744bb3-us14",
+            "api_key": "080870593b957199a9e65a98f0468ba5-us14",
             "server": "us14"
         })
 
@@ -56,26 +60,6 @@ class EmailRegister(generics.CreateAPIView):
             #======= ENREGISTREMENT DU MAIL DANS MAILCHIMP ======#
             response = mailchimp.lists.add_list_member(list_id, member_info)
             # print("response: {}".format(response))
-
-            #======= ENVOIE DE MAIL AU RECEIVER ======#
-
-            subject = "Abonnement sur FedRelay"
-            template = 'newsletter_email.html'
-            context = {
-                'email':email,
-            }
-            receivers = [email]
-
-            has_send = sendEmailBox(subject=subject,receivers=receivers,template=template,context=context)
-
-            if has_send:
-                serializer.save()
-                print('envoyé avec succes!!')
-
-            else:
-                print('echoué avec succes!!')
-                return Response({'error':"L'envoie de mail au client a échoué!!"})
-
         except ApiClientError as error:
             print("An exception occurred: {}".format(error.text))
 

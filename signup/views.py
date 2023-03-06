@@ -20,27 +20,52 @@ from profil.serializer import ProfilSerializer
 from profil.models import ProfilModel
 from django.forms.models import model_to_dict
 
+from datetime import datetime
+# current date and time
+now = datetime.now()
+
+# convert from datetime to timestamp
+time_stamp = datetime.timestamp(now)
+
+
 class CreateProfile(generics.CreateAPIView):
     queryset = ProfilModel.objects.all()
     serializer_class = ProfilSerializer
 
     def create(self, request,user,*args, **kwargs):
-        profil = ProfilModel.objects.create(user=user,nom='',prenom='',telephone=request.data['phone'],email=request.data['email'],profession='',pays='',ville='',quartier='',avatar='')
+        data = request.data
+
+        phone_Or_email = data.get('phone_Or_email')
+        liste = phone_Or_email.split('@')
+
+        ## VERIFIONS S'IL S'AGIT D'UN MAIL OU D'UN PHONE
+        if len(liste)==2: ##C'est un mail
+            email = phone_Or_email
+            telephone = ""
+        else: ## C'est un phone
+            telephone = phone_Or_email
+            email = ""
+
+        profil = ProfilModel.objects.create(user=user,nom='',prenom='',telephone=telephone,email=email,profession='',pays='',ville='',quartier='',avatar='')
         return model_to_dict(profil)
 
 class RegisterAPI(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        data = request.data
+        phone_Or_email = data.get('phone_Or_email')
+    
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+
         userProfil = CreateProfile.create(self, request,user,*args, **kwargs)
 
         #======= ENVOIE DE MAIL AU RECEIVER ======#
-        email = request.data.get('email')
+        email = phone_Or_email
 
-        subject = " Inscription sur FedRelay"
+        subject = "Inscription sur FedRelay"
         template = 'signup_email.html'
 
         context = {

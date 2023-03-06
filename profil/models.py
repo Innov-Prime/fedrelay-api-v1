@@ -8,7 +8,7 @@ class ProfilModel(models.Model):
     nom = models.CharField(max_length=200,null=True)
     prenom = models.CharField(max_length=200,null=True)
     telephone = models.CharField(max_length=200,null=True)
-    email = models.EmailField(unique=True,null=True)
+    email = models.EmailField(null=True)
     profession = models.CharField(max_length=200,null=True)
     pays = models.CharField(max_length=100,null=True)
     ville = models.CharField(max_length=200,null=True)

@@ -80,12 +80,14 @@ class GetAllDelivery(generics.ListAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    queryset = Delivery.objects.all().order_by('-id')
     serializer_class = DeliverySerializer
-    lookup_field = 'user_id'
+
+    def get_queryset(self, request, *args, **kwargs):
+        return Delivery.objects.filter(user=kwargs['user_id']).order_by('-id')
+
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.filter_queryset(self.get_queryset(self, request, *args, **kwargs))
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -120,7 +122,7 @@ class AddingOneDelivery(generics.CreateAPIView):
         sender_name = serializer.validated_data.get('nomEmetteur')
         sender_lastname = serializer.validated_data.get('prenomEmetteur')
 
-        colis_sender_email = request.user.email
+        colis_sender_email = request.user.phone_Or_email
         colis_receiver_email = serializer.validated_data.get('emailDestinataire')
         nomDestinataire = serializer.validated_data.get('nomDestinataire')
         prenomDestinataire = serializer.validated_data.get('prenomDestinataire')
@@ -128,7 +130,7 @@ class AddingOneDelivery(generics.CreateAPIView):
         nomEmetteur = serializer.validated_data.get('nomEmetteur')
         prenomEmetteur = serializer.validated_data.get('prenomEmetteur')
 
-        print(colis_sender_email)
+        # print(colis_sender_email)
 
         #### FORMATION DU CODE DE SUIVI ####
         list = ["A","B","C","D","E","F","G","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
@@ -163,7 +165,39 @@ class AddingOneDelivery(generics.CreateAPIView):
             print('envoyé avec succes!!')
         else:
             print('echoué avec succes!!')
-        
+
+
+class UpdateOneDelivery(generics.UpdateAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = Delivery.objects.all()
+    serializer_class = DeliverySerializer
+    lookup_field = 'user_id'
+
+    def update(self, request, *args, **kwargs):
+        transactionId = request.POST.get('transactionId')
+
+        delivery_count = Delivery.objects.filter(transactionId__exact = transactionId).count()
+
+        if delivery_count!=0:
+            return Response({'success':False,'message':'Cette transaction existe déjà'})
+        else:
+            # print(kwargs['user_id'])
+            partial = kwargs.pop('partial', False)
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=partial)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+
+            if getattr(instance, '_prefetched_objects_cache', None):
+                # If 'prefetch_related' has been applied to a queryset, we need to
+                # forcibly invalidate the prefetch cache on the instance.
+                instance._prefetched_objects_cache = {}
+
+            return Response(serializer.data)
+
+
 class FollowUpDelivery(generics.RetrieveAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
