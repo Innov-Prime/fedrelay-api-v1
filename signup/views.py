@@ -20,7 +20,6 @@ from profil.serializer import ProfilSerializer
 from profil.models import ProfilModel
 from django.forms.models import model_to_dict
 
-
 from datetime import datetime
 # current date and time
 now = datetime.now()
@@ -34,7 +33,20 @@ class CreateProfile(generics.CreateAPIView):
     serializer_class = ProfilSerializer
 
     def create(self, request,user,*args, **kwargs):
-        profil = ProfilModel.objects.create(user=user,nom='',prenom='',telephone=request.data['phone_Or_email'],email=request.data['phone_Or_email'],profession='',pays='',ville='',quartier='',avatar='')
+        data = request.data
+
+        phone_Or_email = data.get('phone_Or_email')
+        liste = phone_Or_email.split('@')
+
+        ## VERIFIONS S'IL S'AGIT D'UN MAIL OU D'UN PHONE
+        if len(liste)==2: ##C'est un mail
+            email = phone_Or_email
+            telephone = ""
+        else: ## C'est un phone
+            telephone = phone_Or_email
+            email = ""
+
+        profil = ProfilModel.objects.create(user=user,nom='',prenom='',telephone=telephone,email=email,profession='',pays='',ville='',quartier='',avatar='')
         return model_to_dict(profil)
 
 class RegisterAPI(generics.CreateAPIView):
@@ -42,8 +54,8 @@ class RegisterAPI(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data
-        phone_Or_email = data['phone_Or_email']
-
+        phone_Or_email = data.get('phone_Or_email')
+    
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -53,7 +65,7 @@ class RegisterAPI(generics.CreateAPIView):
         #======= ENVOIE DE MAIL AU RECEIVER ======#
         email = phone_Or_email
 
-        subject = " Inscription sur FedRelay"
+        subject = "Inscription sur FedRelay"
         template = 'signup_email.html'
 
         context = {

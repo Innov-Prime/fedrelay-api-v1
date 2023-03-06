@@ -162,6 +162,26 @@ import requests
 
 '''
 
+
+
+'''
+##============ UPDATE D'UNE LIVRAISON==========##
+
+    url = http://api.fedrelay.com/<user_id>/update ## ON DOIT LUI ENVOYER UN JSON DATA ## LE TOKEN EST PASSE EN HEADERS
+
+    FORME DU DATA JSON à ENVOYER
+
+    delivery = {
+        "is_validated":True,
+        "transactionId": "##63524trv1",
+    }
+
+    EXEMPLE DE REQUEST:
+
+    requests.patch(http://api.fedrelay.com/<user_id>/update,json=delivery)
+
+'''
+
 '''
 ##============ RECUPERATION DE TOUTE LES LIVRAISONS D'UN USER==========##
 

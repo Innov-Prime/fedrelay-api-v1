@@ -30,6 +30,9 @@ class Delivery(models.Model):
 
     follow_code = models.CharField(max_length = 200,null=True)
 
+    is_validated = models.BooleanField(default=False)
+    transactionId = models.CharField(max_length=300,null=True,unique=True)
+
     is_lancement = models.BooleanField(default=True)
     is_enlevement = models.BooleanField(default=False)
     is_acheminement = models.BooleanField(default=False)

@@ -27,5 +27,15 @@ class DeliverySerializer(serializers.ModelSerializer):
         "poids",
         "description",
         "follow_code",
+
+        "is_validated",
+        "transactionId",
+
+        "is_lancement",
+        "is_enlevement",
+        "is_acheminement",
+        "is_reception",
+        "is_termine",
+
         "created_date",
         )

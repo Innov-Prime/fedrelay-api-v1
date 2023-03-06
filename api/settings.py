@@ -224,7 +224,6 @@ EMAIL_PORT = '2525'
 # MAIL_FROM_ADDRESS="contact@connect.bj"
 # MAIL_FROM_NAME="${APP_NAME}"
 
-
 # Make sure that BASE_DIR is defined somewhere at the top
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
